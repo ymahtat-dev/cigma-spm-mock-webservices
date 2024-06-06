@@ -1,0 +1,202 @@
+{
+  "masterdata": {
+    "user-types": [
+      {
+        "id": "admin",
+        "label": "ADMINISTRATEUR"
+      },
+      {
+        "id": "student",
+        "label": "ETUDIANT(E)"
+      }
+    ],
+    "studies-types": [
+      {
+        "id": "D2J",
+        "label": "Licence Professionnelle Java J2E"
+      },
+      {
+        "id": "DWFSD",
+        "label": "Licence Professionnelle Développement Web Full Stack et DevOps"
+      },
+      {
+        "id": "QL",
+        "label": "Licence Professionnelle Qualité Logicielle"
+      },
+      {
+        "id": "PL",
+        "label": "Licence Professionnelle Pilotage Logicielle"
+      }
+    ],
+    "status-flows": [
+      {
+        "id": "to_start",
+        "label": "À DEMARRER"
+      },
+      {
+        "id": "in_progress",
+        "label": "EN COURS"
+      },
+      {
+        "id": "pending",
+        "label": "EN ATTENTE"
+      },
+      {
+        "id": "finished",
+        "label": "TERMINÉ"
+      },
+      {
+        "id": "canceled",
+        "label": "ANNULÉ"
+      }
+    ],
+    "task-types": [
+      {
+        "id": "design",
+        "label": "DESIGN"
+      },
+      {
+        "id": "development",
+        "label": "DEVELOPPEMENT"
+      },
+      {
+        "id": "conception",
+        "label": "CONCEPTION"
+      },
+      {
+        "id": "testing",
+        "label": "TESTING"
+      },
+      {
+        "id": "deployment",
+        "label": "DEPLOIEMENT"
+      },
+      {
+        "id": "other",
+        "label": "AUTRE"
+      }
+    ]
+  },
+  "users": [
+    {
+      "id": 1,
+      "firstname": "AZIZ",
+      "lastname": "MILOZOVIC",
+      "username": "admin",
+      "password": "admin",
+      "gender": "male",
+      "birthdate": "1987-03-02",
+      "email": "admin@cigma.ma",
+      "pictureUrl": "https://www.pngmart.com/files/21/Admin-Profile-Transparent-PNG.png",
+      "userType": "admin",
+      "study": null
+    },
+    {
+      "id": 2,
+      "firstname": "ASMAE",
+      "lastname": "BENNANI",
+      "username": "azbennani",
+      "password": "1234567",
+      "gender": "female",
+      "birthdate": "1999-05-19",
+      "email": "aziz.milozovic@gmail.com",
+      "pictureUrl": "https://www.pngall.com/wp-content/uploads/8/Student-PNG-Photo.png",
+      "userType": "student",
+      "study": "D2J"
+    },
+    {
+      "id": 3,
+      "firstname": "ABDELHAMID",
+      "lastname": "ARROUB",
+      "username": "aarroub",
+      "password": "123456",
+      "gender": "male",
+      "birthdate": "1999-04-02",
+      "email": "abdelhamid.arroub@gmail.com",
+      "pictureUrl": "https://www.pngall.com/wp-content/uploads/8/Graduation-Scholarship-PNG-Free-Image.png",
+      "userType": "student",
+      "study": "D2J"
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "name": "Project 1",
+      "description": "Description 1",
+      "type": "text-libre",
+      "status": "to_start",
+      "startDate": "2024-06-04T20:53:31.122Z",
+      "provisionalEndDate": "2024-06-14T20:53:31.122Z",
+      "endDate": "2024-06-16T20:53:31.122Z",
+      "responsibleStudentId": 1,
+      "studentsMembers": [
+        1,
+        2
+      ]
+    },
+    {
+      "id": 3,
+      "name": "SPOPO TROLOLO",
+      "description": "splum clum trum zum",
+      "type": "development",
+      "status": "to_start",
+      "startDate": "2024-06-04T20:53:31.122Z",
+      "provisionalEndDate": "2024-06-14T20:53:31.122Z",
+      "endDate": "2024-06-16T20:53:31.122Z",
+      "responsibleStudentId": 2,
+      "studentsMembers": [
+        2
+      ]
+    },
+    {
+      "id": 4,
+      "name": "SPOPO TROLOLO",
+      "description": "splum clum trum zum",
+      "type": "development",
+      "status": "to_start",
+      "startDate": "2024-06-04T20:53:31.122Z",
+      "provisionalEndDate": "2024-06-14T20:53:31.122Z",
+      "endDate": "2024-06-16T20:53:31.122Z",
+      "responsibleStudentId": 2,
+      "studentsMembers": [
+        2
+      ]
+    }
+  ],
+  "tasks": [
+    {
+      "id": 1,
+      "name": "Task 1",
+      "description": "Description 1",
+      "type": "development",
+      "typeDetails": "text-libre",
+      "status": "to_start",
+      "startDate": "2024-06-04T20:53:31.122Z",
+      "provisionalEndDate": "2024-06-14T20:53:31.122Z",
+      "endDate": "2024-06-16T20:53:31.122Z",
+      "projectId": 1,
+      "userId": 2
+    },
+    {
+      "id": 2,
+      "name": "Task 121212",
+      "description": "Description 121212",
+      "type": "development",
+      "typeDetails": "text-libre",
+      "status": "to_start",
+      "startDate": "2024-06-04T20:53:31.122Z",
+      "provisionalEndDate": "2024-06-14T20:53:31.122Z",
+      "endDate": "2024-06-16T20:53:31.122Z",
+      "projectId": 1,
+      "userId": 1
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "text": "Comment 1",
+      "taskId": 1,
+      "userId": 2
+    }
+  ]
+}
