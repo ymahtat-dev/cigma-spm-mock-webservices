@@ -41,17 +41,21 @@ server.get('/api/masterdata/task-types', (req, res) => {
 
 // Middleware d'authentification
 server.post('/api/auth/login', (req, res) => {
-    const { username, password } = req.body;
+    const {username, password} = req.body;
     const users = router.db.get('users').value();
     const user = users.find(u => u.username === username && u.password === password);
     if (user) {
-        const token = jwt.sign({ id: user.id, username: user.username, userType: user.userType }, SECRET_KEY, { expiresIn });
+        const token = jwt.sign({
+            id: user.id,
+            username: user.username,
+            userType: user.userType
+        }, SECRET_KEY, {expiresIn});
         res.status(200).json({
             message: 'Login successful',
             token
         });
     } else {
-        res.status(401).json({ message: 'Invalid username or password' });
+        res.status(401).json({message: 'Invalid username or password'});
     }
 });
 
@@ -82,31 +86,31 @@ server.get('/api/auth/validate-token', authenticateJWT, (req, res) => {
 
 // Route pour récupérer le profil de l'utilisateur
 server.get('/api/auth/profile', authenticateJWT, (req, res) => {
-    const user = router.db.get('users').find({ id: req.user.id }).value();
+    const user = router.db.get('users').find({id: req.user.id}).value();
     if (user) {
         delete user.password;
         res.json(user);
     } else {
-        res.status(404).json({ message: 'User not found' });
+        res.status(404).json({message: 'User not found'});
     }
 });
 
 // Route pour modifier son mot de passe
 server.put('/api/auth/update-password', authenticateJWT, (req, res) => {
-    const { oldPassword, newPassword } = req.body;
-    const user = router.db.get('users').find({ id: req.user.id }).value();
+    const {oldPassword, newPassword} = req.body;
+    const user = router.db.get('users').find({id: req.user.id}).value();
     if (user && user.password === oldPassword) {
-        router.db.get('users').find({ id: req.user.id }).assign({ password: newPassword }).write();
-        res.status(200).json({ message: 'Password updated successfully' });
+        router.db.get('users').find({id: req.user.id}).assign({password: newPassword}).write();
+        res.status(200).json({message: 'Password updated successfully'});
     } else {
-        res.status(400).json({ message: 'Incorrect old password' });
+        res.status(400).json({message: 'Incorrect old password'});
     }
 });
 
 // Route pour déconnexion
 server.post('/api/auth/logout', authenticateJWT, (req, res) => {
     // Invalidate token logic can be implemented here if needed
-    res.status(200).json({ message: 'Logout successful' });
+    res.status(200).json({message: 'Logout successful'});
 });
 
 // Gestion des utilisateurs (Admin seulement)
@@ -157,9 +161,9 @@ server.put('/api/users/:id', authenticateJWT, (req, res) => {
     if (req.user.userType !== 'admin') {
         return res.sendStatus(403);
     }
-    const { id } = req.params;
+    const {id} = req.params;
     const userPayload = req.body;
-    router.db.get('users').find({ id: parseInt(id) }).assign(userPayload).write();
+    router.db.get('users').find({id: parseInt(id)}).assign(userPayload).write();
     const updatedUser = JSON.parse(JSON.stringify(userPayload));
     delete updatedUser.password;
     res.status(200).json(updatedUser);
@@ -169,8 +173,8 @@ server.delete('/api/users/:id', authenticateJWT, (req, res) => {
     if (req.user.userType !== 'admin') {
         return res.sendStatus(403);
     }
-    const { id } = req.params;
-    router.db.get('users').remove({ id: parseInt(id) }).write();
+    const {id} = req.params;
+    router.db.get('users').remove({id: parseInt(id)}).write();
     res.sendStatus(204);
 });
 
@@ -247,10 +251,10 @@ server.post('/api/projects', authenticateJWT, (req, res) => {
 });
 
 server.put('/api/projects/:id', authenticateJWT, (req, res) => {
-    const { id } = req.params;
-    const project = router.db.get('projects').find({ id: parseInt(id) }).value();
+    const {id} = req.params;
+    const project = router.db.get('projects').find({id: parseInt(id)}).value();
     if (req.user.userType === 'admin' || project.responsibleStudentId === req.user.id) {
-        router.db.get('projects').find({ id: parseInt(id) }).assign(req.body).write();
+        router.db.get('projects').find({id: parseInt(id)}).assign(req.body).write();
         res.status(200).json(req.body);
     } else {
         res.sendStatus(403);
@@ -258,10 +262,10 @@ server.put('/api/projects/:id', authenticateJWT, (req, res) => {
 });
 
 server.delete('/api/projects/:id', authenticateJWT, (req, res) => {
-    const { id } = req.params;
-    const project = router.db.get('projects').find({ id: parseInt(id) }).value();
+    const {id} = req.params;
+    const project = router.db.get('projects').find({id: parseInt(id)}).value();
     if (req.user.userType === 'admin' || project.responsibleStudentId === req.user.id) {
-        router.db.get('projects').remove({ id: parseInt(id) }).write();
+        router.db.get('projects').remove({id: parseInt(id)}).write();
         res.sendStatus(204);
     } else {
         res.sendStatus(403);
@@ -269,8 +273,8 @@ server.delete('/api/projects/:id', authenticateJWT, (req, res) => {
 });
 
 server.get('/api/projects/:id', authenticateJWT, (req, res) => {
-    const { id } = req.params;
-    const project = router.db.get('projects').find({ id: parseInt(id) }).value();
+    const {id} = req.params;
+    const project = router.db.get('projects').find({id: parseInt(id)}).value();
     if (req.user.userType === 'admin' || project.responsibleStudentId === req.user.id || project.studentsMembers.includes(req.user.id)) {
         res.json(project);
     } else {
@@ -285,8 +289,8 @@ server.get('/api/tasks', authenticateJWT, (req, res) => {
 });
 
 server.get('/api/projects/:projectId/tasks', authenticateJWT, (req, res) => {
-    const { projectId } = req.params;
-    const project = router.db.get('projects').find({ id: parseInt(projectId) }).value();
+    const {projectId} = req.params;
+    const project = router.db.get('projects').find({id: parseInt(projectId)}).value();
     if (req.user.userType === 'admin' || project.responsibleStudentId === req.user.id || project.studentsMembers.includes(req.user.id)) {
         const tasks = router.db.get('tasks').filter(t => t.projectId === parseInt(projectId)).value();
         res.json(tasks);
@@ -296,8 +300,8 @@ server.get('/api/projects/:projectId/tasks', authenticateJWT, (req, res) => {
 });
 
 server.post('/api/projects/:projectId/tasks', authenticateJWT, (req, res) => {
-    const { projectId } = req.params;
-    const project = router.db.get('projects').find({ id: parseInt(projectId) }).value();
+    const {projectId} = req.params;
+    const project = router.db.get('projects').find({id: parseInt(projectId)}).value();
     if (req.user.userType === 'admin' || project.responsibleStudentId === req.user.id || project.studentsMembers.includes(req.user.id)) {
         const taskPayload = req.body;
         const taskToCreate = {
@@ -320,11 +324,11 @@ server.post('/api/projects/:projectId/tasks', authenticateJWT, (req, res) => {
 });
 
 server.put('/api/tasks/:id', authenticateJWT, (req, res) => {
-    const { id } = req.params;
-    const task = router.db.get('tasks').find({ id: parseInt(id) }).value();
+    const {id} = req.params;
+    const task = router.db.get('tasks').find({id: parseInt(id)}).value();
     if (req.user.userType === 'admin' || task.userId === req.user.id) {
         const taskPayload = req.body;
-        router.db.get('tasks').find({ id: parseInt(id) }).assign(taskPayload).write();
+        router.db.get('tasks').find({id: parseInt(id)}).assign(taskPayload).write();
         res.status(200).json(taskPayload);
     } else {
         res.sendStatus(403);
@@ -332,10 +336,10 @@ server.put('/api/tasks/:id', authenticateJWT, (req, res) => {
 });
 
 server.delete('/api/tasks/:id', authenticateJWT, (req, res) => {
-    const { id } = req.params;
-    const task = router.db.get('tasks').find({ id: parseInt(id) }).value();
+    const {id} = req.params;
+    const task = router.db.get('tasks').find({id: parseInt(id)}).value();
     if (req.user.userType === 'admin' || task.userId === req.user.id) {
-        router.db.get('tasks').remove({ id: parseInt(id) }).write();
+        router.db.get('tasks').remove({id: parseInt(id)}).write();
         res.sendStatus(204);
     } else {
         res.sendStatus(403);
@@ -343,8 +347,8 @@ server.delete('/api/tasks/:id', authenticateJWT, (req, res) => {
 });
 
 server.get('/api/tasks/:id', authenticateJWT, (req, res) => {
-    const { id } = req.params;
-    const task = router.db.get('tasks').find({ id: parseInt(id) }).value();
+    const {id} = req.params;
+    const task = router.db.get('tasks').find({id: parseInt(id)}).value();
     if (req.user.userType === 'admin' || task.userId === req.user.id) {
         res.json(task);
     } else {
@@ -359,8 +363,8 @@ server.get('/api/comments', authenticateJWT, (req, res) => {
 });
 
 server.get('/api/tasks/:taskId/comments', authenticateJWT, (req, res) => {
-    const { taskId } = req.params;
-    const task = router.db.get('tasks').find({ id: parseInt(taskId) }).value();
+    const {taskId} = req.params;
+    const task = router.db.get('tasks').find({id: parseInt(taskId)}).value();
     if (req.user.userType === 'admin' || task.userId === req.user.id) {
         const comments = router.db.get('comments').filter(c => c.taskId === parseInt(taskId)).value();
         res.json(comments);
@@ -370,8 +374,8 @@ server.get('/api/tasks/:taskId/comments', authenticateJWT, (req, res) => {
 });
 
 server.post('/api/tasks/:taskId/comments', authenticateJWT, (req, res) => {
-    const { taskId } = req.params;
-    const task = router.db.get('tasks').find({ id: parseInt(taskId) }).value();
+    const {taskId} = req.params;
+    const task = router.db.get('tasks').find({id: parseInt(taskId)}).value();
     if (req.user.userType === 'admin' || task.userId === req.user.id) {
         const commentPayload = req.body;
         const commentToCreate = {
@@ -388,11 +392,11 @@ server.post('/api/tasks/:taskId/comments', authenticateJWT, (req, res) => {
 });
 
 server.put('/api/comments/:id', authenticateJWT, (req, res) => {
-    const { id } = req.params;
-    const comment = router.db.get('comments').find({ id: parseInt(id) }).value();
+    const {id} = req.params;
+    const comment = router.db.get('comments').find({id: parseInt(id)}).value();
     if (req.user.userType === 'admin' || comment.userId === req.user.id) {
         const commentPayload = req.body;
-        router.db.get('comments').find({ id: parseInt(id) }).assign(commentPayload).write();
+        router.db.get('comments').find({id: parseInt(id)}).assign(commentPayload).write();
         res.status(200).json(commentPayload);
     } else {
         res.sendStatus(403);
@@ -400,10 +404,10 @@ server.put('/api/comments/:id', authenticateJWT, (req, res) => {
 });
 
 server.delete('/api/comments/:id', authenticateJWT, (req, res) => {
-    const { id } = req.params;
-    const comment = router.db.get('comments').find({ id: parseInt(id) }).value();
+    const {id} = req.params;
+    const comment = router.db.get('comments').find({id: parseInt(id)}).value();
     if (req.user.userType === 'admin' || comment.userId === req.user.id) {
-        router.db.get('comments').remove({ id: parseInt(id) }).write();
+        router.db.get('comments').remove({id: parseInt(id)}).write();
         res.sendStatus(204);
     } else {
         res.sendStatus(403);
@@ -411,15 +415,14 @@ server.delete('/api/comments/:id', authenticateJWT, (req, res) => {
 });
 
 server.get('/api/comments/:id', authenticateJWT, (req, res) => {
-    const { id } = req.params;
-    const comment = router.db.get('comments').find({ id: parseInt(id) }).value();
+    const {id} = req.params;
+    const comment = router.db.get('comments').find({id: parseInt(id)}).value();
     if (req.user.userType === 'admin' || comment.userId === req.user.id) {
         res.json(comment);
     } else {
         res.sendStatus(403);
     }
 });
-
 
 
 // Utiliser le routeur par défaut avec le préfixe /api
