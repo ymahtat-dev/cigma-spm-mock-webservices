@@ -1,13 +1,11 @@
 {
-    "name": "spm-mock-webservices",
+    "name": "cigma-spm-mock-webservices",
     "version": "1.0.0",
+    "author": "YMahtat",
     "main": "server.js",
     "scripts": {
         "start": "node server.js"
     },
-    "author": "YMahtat",
-    "license": "ISC",
-    "description": "",
     "dependencies": {
         "body-parser": "^1.20.2",
         "json-server": "^0.17.0",
