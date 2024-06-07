@@ -96,7 +96,7 @@
             "firstname": "ASMAE",
             "lastname": "BENNANI",
             "username": "azbennani",
-            "password": "1234567",
+            "password": "123456",
             "gender": "female",
             "birthdate": "1999-05-19",
             "email": "aziz.milozovic@gmail.com",
@@ -116,87 +116,168 @@
             "pictureUrl": "https://www.pngall.com/wp-content/uploads/8/Graduation-Scholarship-PNG-Free-Image.png",
             "userType": "student",
             "study": "D2J"
+        },
+        {
+            "id": 4,
+            "firstname": "SALMA",
+            "lastname": "EL AMRANI",
+            "username": "selamrani",
+            "password": "123456",
+            "gender": "female",
+            "birthdate": "2000-08-15",
+            "email": "salma.elamrani@gmail.com",
+            "pictureUrl": "https://www.pngall.com/wp-content/uploads/8/Student-PNG-Picture.png",
+            "userType": "student",
+            "study": "DWFSD"
+        },
+        {
+            "id": 5,
+            "firstname": "MOHAMED",
+            "lastname": "SAHRAOUI",
+            "username": "msahraoui",
+            "password": "123456",
+            "gender": "male",
+            "birthdate": "1998-12-22",
+            "email": "mohamed.sahraoui@gmail.com",
+            "pictureUrl": "https://www.pngall.com/wp-content/uploads/8/Student-PNG-Images.png",
+            "userType": "student",
+            "study": "QL"
         }
     ],
     "projects": [
         {
             "id": 1,
-            "name": "Project 1",
-            "description": "Description 1",
-            "type": "text-libre",
-            "status": "to_start",
-            "startDate": "2024-06-04T20:53:31.122Z",
-            "provisionalEndDate": "2024-06-14T20:53:31.122Z",
-            "endDate": "2024-06-16T20:53:31.122Z",
-            "responsibleStudentId": 1,
+            "name": "Gestion de Projet Web",
+            "description": "Développement d'une application web pour la gestion de projets.",
+            "type": "Application Web",
+            "status": "in_progress",
+            "startDate": "2024-05-01T08:00:00.000Z",
+            "provisionalEndDate": "2024-07-01T08:00:00.000Z",
+            "endDate": null,
+            "responsibleStudentId": 2,
             "studentsMembers": [
-                1,
-                2
+                2,
+                3,
+                4
+            ]
+        },
+        {
+            "id": 2,
+            "name": "Application Mobile",
+            "description": "Création d'une application mobile pour le suivi des tâches.",
+            "type": "Application Mobile",
+            "status": "to_start",
+            "startDate": "2024-06-01T08:00:00.000Z",
+            "provisionalEndDate": "2024-08-01T08:00:00.000Z",
+            "endDate": null,
+            "responsibleStudentId": 4,
+            "studentsMembers": [
+                4,
+                5
             ]
         },
         {
             "id": 3,
-            "name": "SPOPO TROLOLO",
-            "description": "splum clum trum zum",
-            "type": "development",
+            "name": "Qualité Logicielle",
+            "description": "Mise en place des procédures pour assurer la qualité des logiciels.",
+            "type": "Procédures Qualité",
             "status": "to_start",
-            "startDate": "2024-06-04T20:53:31.122Z",
-            "provisionalEndDate": "2024-06-14T20:53:31.122Z",
-            "endDate": "2024-06-16T20:53:31.122Z",
-            "responsibleStudentId": 2,
+            "startDate": "2024-06-15T08:00:00.000Z",
+            "provisionalEndDate": "2024-09-01T08:00:00.000Z",
+            "endDate": null,
+            "responsibleStudentId": 5,
             "studentsMembers": [
-                2
-            ]
-        },
-        {
-            "id": 4,
-            "name": "SPOPO TROLOLO",
-            "description": "splum clum trum zum",
-            "type": "development",
-            "status": "to_start",
-            "startDate": "2024-06-04T20:53:31.122Z",
-            "provisionalEndDate": "2024-06-14T20:53:31.122Z",
-            "endDate": "2024-06-16T20:53:31.122Z",
-            "responsibleStudentId": 2,
-            "studentsMembers": [
-                2
+                3,
+                5
             ]
         }
     ],
     "tasks": [
         {
             "id": 1,
-            "name": "Task 1",
-            "description": "Description 1",
-            "type": "development",
-            "typeDetails": "text-libre",
-            "status": "to_start",
-            "startDate": "2024-06-04T20:53:31.122Z",
-            "provisionalEndDate": "2024-06-14T20:53:31.122Z",
-            "endDate": "2024-06-16T20:53:31.122Z",
+            "name": "Conception de la base de données",
+            "description": "Créer le schéma de la base de données.",
+            "type": "conception",
+            "status": "in_progress",
+            "startDate": "2024-05-01T08:00:00.000Z",
+            "provisionalEndDate": "2024-05-10T08:00:00.000Z",
+            "endDate": null,
             "projectId": 1,
             "userId": 2
         },
         {
             "id": 2,
-            "name": "Task 121212",
-            "description": "Description 121212",
+            "name": "Développement de l'API",
+            "description": "Développer l'API REST pour l'application.",
             "type": "development",
-            "typeDetails": "text-libre",
             "status": "to_start",
-            "startDate": "2024-06-04T20:53:31.122Z",
-            "provisionalEndDate": "2024-06-14T20:53:31.122Z",
-            "endDate": "2024-06-16T20:53:31.122Z",
+            "startDate": "2024-05-11T08:00:00.000Z",
+            "provisionalEndDate": "2024-05-20T08:00:00.000Z",
+            "endDate": null,
             "projectId": 1,
-            "userId": 1
+            "userId": 3
+        },
+        {
+            "id": 3,
+            "name": "Interface utilisateur",
+            "description": "Concevoir l'interface utilisateur de l'application.",
+            "type": "design",
+            "status": "to_start",
+            "startDate": "2024-06-01T08:00:00.000Z",
+            "provisionalEndDate": "2024-06-10T08:00:00.000Z",
+            "endDate": null,
+            "projectId": 2,
+            "userId": 4
+        },
+        {
+            "id": 4,
+            "name": "Tests unitaires",
+            "description": "Écrire les tests unitaires pour l'API.",
+            "type": "testing",
+            "status": "to_start",
+            "startDate": "2024-06-01T08:00:00.000Z",
+            "provisionalEndDate": "2024-06-10T08:00:00.000Z",
+            "endDate": null,
+            "projectId": 1,
+            "userId": 5
+        },
+        {
+            "id": 5,
+            "name": "Documentation",
+            "description": "Rédiger la documentation du projet.",
+            "type": "documentation",
+            "status": "to_start",
+            "startDate": "2024-06-15T08:00:00.000Z",
+            "provisionalEndDate": "2024-06-20T08:00:00.000Z",
+            "endDate": null,
+            "projectId": 3,
+            "userId": 3
         }
     ],
     "comments": [
         {
             "id": 1,
-            "text": "Comment 1",
+            "text": "Bon travail sur la conception de la base de données!",
             "taskId": 1,
+            "userId": 3
+        },
+        {
+            "id": 2,
+            "text": "N'oubliez pas d'ajouter les tests unitaires.",
+            "taskId": 2,
             "userId": 2
+        },
+        {
+            "id": 3,
+            "text": "L'interface utilisateur doit être intuitive.",
+            "taskId": 3,
+            "userId": 5
+        },
+        {
+            "id": 4,
+            "text": "La documentation est essentielle.",
+            "taskId": 5,
+            "userId": 4
         }
     ]
 }
