@@ -66,6 +66,7 @@ const authenticateJWT = (req, res, next) => {
         const token = authHeader.split(' ')[1];
         jwt.verify(token, SECRET_KEY, (err, user) => {
             if (err) {
+                console.error(err);
                 return res.sendStatus(403);
             }
             req.user = user;
@@ -88,8 +89,9 @@ server.get('/api/auth/validate-token', authenticateJWT, (req, res) => {
 server.get('/api/auth/profile', authenticateJWT, (req, res) => {
     const user = router.db.get('users').find({id: req.user.id}).value();
     if (user) {
-        delete user.password;
-        res.json(user);
+        const userProfile = JSON.parse(JSON.stringify(user));
+        delete userProfile.password;
+        res.json(userProfile);
     } else {
         res.status(404).json({message: 'User not found'});
     }
